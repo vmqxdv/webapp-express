@@ -4,13 +4,13 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'admin',
-    database: 'express-blog'
+    database: 'webapp-express'
 });
 
 connection.connect((err) => {
     if (err) throw err;
 
-    console.log('Db Connessio');
+    console.log('Db Connesso');
 });
 
 module.exports = connection;

@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
-const PORT = 1229;
+const PORT = process.env.PORT || 3000;
 const router = require('./routes/posts');
 
 app.use(express.static('public'));
