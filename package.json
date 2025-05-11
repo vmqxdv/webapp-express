@@ -1,0 +1,16 @@
+{
+  "name": "express-blog-routing",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "vmqxdv",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mysql2": "^3.14.1"
+  }
+}
