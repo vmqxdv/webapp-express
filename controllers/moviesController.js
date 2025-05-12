@@ -16,7 +16,14 @@ function getAllMovies(req, res) {
   db.query(sql, (err, results) => {
     if (err) return res.status(500).json({ error: 'Errore nel recupero dei film' });
 
-    res.json(results);
+    const result = results.map(movie => {
+      return {
+        ...movie,
+        imagePath: movie.image ? `${process.env.IMAGE_PATH}/movies/${movie.image}` : null,
+      };
+    });
+
+    res.json(result);
   });
 };
 
@@ -35,7 +42,11 @@ function getMovieById(req, res) {
     db.query('SELECT * FROM reviews WHERE movie_id = ?', [movieId], (err, reviews) => {
       if (err) return res.status(500).json({ error: 'Errore nel recupero delle recensioni' });
 
-      res.json({ ...movie, reviews });
+      res.json({
+        ...movie,
+        imagePath: movie.image ? `${process.env.IMAGE_PATH}/movies/${movie.image}` : null,
+        reviews
+      });
     });
   });
 };
