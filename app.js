@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.SITE_PORT || 3000;
 const router = require('./routes/movies');
@@ -8,6 +9,11 @@ const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
 app.use(express.static('public'));
+
+app.use(cors({
+  origin: 'http://localhost:5174'
+}));
+
 
 app.use('/movies', router);
 
