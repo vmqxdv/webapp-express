@@ -4,7 +4,7 @@ function getAllMovies(req, res) {
   const sql = `
     SELECT 
       movies.*, 
-      ROUND(AVG(reviews.vote)) AS average_vote 
+      ROUND(AVG(reviews.vote), 1) AS average_vote 
     FROM 
       movies
     JOIN 
