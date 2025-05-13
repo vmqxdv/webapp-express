@@ -30,7 +30,21 @@ function getAllMovies(req, res) {
 function getMovieById(req, res) {
   const movieId = Number(req.params.id);
 
-  db.query('SELECT * FROM movies WHERE id = ?', [movieId], (err, results) => {
+  const sql = `
+    SELECT 
+      movies.*, 
+      ROUND(AVG(reviews.vote), 1) AS average_vote 
+    FROM 
+      movies
+    JOIN 
+      reviews ON movies.id = reviews.movie_id 
+    WHERE 
+      movies.id = ?
+    GROUP BY 
+      movies.id
+  `;
+
+  db.query(sql, [movieId], (err, results) => {
     if (err)
       return res.status(500).json({ error: 'Errore nel recupero del film' });
 
