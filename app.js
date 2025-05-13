@@ -8,12 +8,13 @@ const router = require('./routes/movies');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
-app.use(express.static('public'));
 
 app.use(cors({
-  origin: 'http://localhost:5174'
+  origin: process.env.FRONTEND_URL
 }));
 
+
+app.use(express.static('public'));
 
 app.use('/movies', router);
 
