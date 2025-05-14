@@ -65,8 +65,32 @@ function getMovieById(req, res) {
   });
 };
 
+function addReview(req, res) {
+  const movieId = Number(req.params.id);
+  const { name, text, vote } = req.body;
+
+  if (!name || !text || typeof vote !== 'number')
+    return res.status(400).json({ error: 'Dati recensione mancanti o non validi' });
+
+  const sql = `
+    INSERT INTO
+      reviews (movie_id, name, text, vote)
+    VALUES 
+      (?, ?, ?, ?)
+  `;
+
+  db.query(sql, [movieId, name, text, vote], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ error: 'Errore nel salvataggio della recensione' });
+    };
+
+    res.status(201).json({ message: 'Recensione aggiunta con successo', reviewId: result.insertId });
+  });
+};
 
 module.exports = {
   getAllMovies,
   getMovieById,
+  addReview,
 };
